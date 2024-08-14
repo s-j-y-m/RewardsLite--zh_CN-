@@ -15,7 +15,8 @@ public enum MinecraftVersion {
     v1_17("1_17", 9),
     v1_18("1_18", 10),
     v1_19("1_19", 11),
-    v1_20("1_20", 12);
+    v1_20("1_20", 12),
+    v1_21("1_21", 13);
 
     private final int order;
     private final String key;
