@@ -2,17 +2,20 @@ package com.backtobedrock.rewardslite.listeners;
 
 import com.backtobedrock.rewardslite.domain.CustomHolder;
 import com.backtobedrock.rewardslite.domain.Icon;
+import com.backtobedrock.rewardslite.utilities.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class ListenerCustomInventory extends AbstractEventListener {
     @EventHandler
     public void onCustomInventoryClick(InventoryClickEvent event) {
-        if (!(event.getView().getTopInventory().getHolder() instanceof CustomHolder)) {
+        Inventory topInventory = InventoryUtils.getTopInventory(event);
+        if (!(topInventory.getHolder() instanceof CustomHolder)) {
             return;
         }
 
@@ -29,7 +32,7 @@ public class ListenerCustomInventory extends AbstractEventListener {
             return;
         }
 
-        CustomHolder customHolder = (CustomHolder) event.getView().getTopInventory().getHolder();
+        CustomHolder customHolder = (CustomHolder) topInventory.getHolder();
 
         Icon icon = customHolder.getIcon(event.getRawSlot());
         if (icon == null) {
@@ -41,7 +44,8 @@ public class ListenerCustomInventory extends AbstractEventListener {
 
     @EventHandler
     public void onCustomInventoryClose(InventoryCloseEvent event) {
-        if (!(event.getView().getTopInventory().getHolder() instanceof CustomHolder)) {
+        Inventory topInventory = InventoryUtils.getTopInventory(event);
+        if (!(topInventory.getHolder() instanceof CustomHolder)) {
             return;
         }
 
